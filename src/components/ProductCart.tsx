@@ -37,10 +37,10 @@ const ProductCart = ({ product }: IProps) => {
       </div>
 
       <div className="flex gap-2 rounded-lg mt-2">
-        <Button className="bg-indigo-700" width="w-full">
+        <Button className="bg-indigo-700 hover:bg-indigo-800" width="w-full">
           EDIT
         </Button>
-        <Button className="bg-red-700" width="w-full">
+        <Button className="bg-red-700 hover:bg-red-800" width="w-full">
           DELETE
         </Button>
       </div>
