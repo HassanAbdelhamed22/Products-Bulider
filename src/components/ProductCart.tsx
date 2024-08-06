@@ -11,11 +11,11 @@ const ProductCart = ({ product }: IProps) => {
   const { category, colors, description, imageURL, price, title } = product;
 
   return (
-    <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-md p-2 flex flex-col">
+    <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-lg p-2 flex flex-col">
       <Image
         imageURL={imageURL}
         alt="product name"
-        className="rounded-md mb-2 h-52 w-full lg:object-cover"
+        className="rounded-lg mb-2 h-52 w-full lg:object-cover"
       />
 
       <h3>{title}</h3>

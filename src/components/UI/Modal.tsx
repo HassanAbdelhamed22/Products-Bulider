@@ -1,8 +1,4 @@
-import {
-  Dialog,
-  DialogTitle,
-  Transition,
-} from "@headlessui/react";
+import { Dialog, DialogTitle, Transition } from "@headlessui/react";
 import { Fragment, ReactNode } from "react";
 
 interface IProps {
@@ -26,12 +22,12 @@ export default function Modal({ closeModal, isOpen, title, children }: IProps) {
           leaveTo="opacity-0 scale-95"
         >
           <div className="fixed inset-0 z-10 w-screen overflow-y-auto bg-black bg-opacity-30">
-            <div className="flex min-h-full items-center justify-center p-4">
-              <Dialog.Panel className="w-full max-w-md rounded-xl bg-white p-6 backdrop-blur-2xl">
+            <div className="flex min-h-full items-center justify-center p-4 text-black">
+              <Dialog.Panel className="w-full max-w-md rounded-lg bg-white p-6 backdrop-blur-2xl">
                 {title && (
                   <DialogTitle
                     as="h3"
-                    className="text-base font-medium text-black"
+                    className="text-lg font-bold text-gray-700 text-center"
                   >
                     {title}
                   </DialogTitle>
