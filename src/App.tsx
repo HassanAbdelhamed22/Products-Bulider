@@ -1,14 +1,15 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCart from "./components/ProductCart";
 import Modal from "./components/UI/Modal";
 import { formInputsList, productList } from "./data";
 import Button from "./components/UI/Button";
 import Input from "./components/UI/Input";
 import { IProduct } from "./interfaces";
+import { productValidation } from "./validation";
+import Error from "./components/Error";
 
 const App = () => {
-  /*STATE*/
-  const [product, setProduct] = useState<IProduct>({
+  const defaultProductObj = {
     title: "",
     description: "",
     imageURL: "",
@@ -18,6 +19,14 @@ const App = () => {
       name: "",
       imageURL: "",
     },
+  };
+  /*STATE*/
+  const [product, setProduct] = useState<IProduct>(defaultProductObj);
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+    imageURL: "",
+    price: "",
   });
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,6 +40,37 @@ const App = () => {
       ...product,
       [name]: value,
     });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
+  };
+
+  const submitHandler = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    const errors = productValidation({
+      title: product.title,
+      description: product.description,
+      imageURL: product.imageURL,
+      price: product.price,
+    });
+
+    // Check if any property has a value of "" && Check if all properties have a value of ""
+    const hasErrorMsg =
+      Object.values(errors).some((value) => value === "") &&
+      Object.values(errors).every((value) => value === "");
+    if (!hasErrorMsg) {
+      setErrors(errors);
+      return;
+    }
+
+    console.log("The product is send to our server❤️");
+  };
+
+  const onCancel = () => {
+    console.log("cancel");
+    setProduct(defaultProductObj);
+    closeModal();
   };
 
   /*RENDER*/
@@ -39,7 +79,7 @@ const App = () => {
   ));
 
   const renderFormInputList = formInputsList.map((input) => (
-    <div className="flex flex-col">
+    <div className="flex flex-col" key={input.id}>
       <label
         htmlFor={input.id}
         className="mb-[2px] text-[16px] font-medium text-gray-700"
@@ -53,6 +93,7 @@ const App = () => {
         value={product[input.name]}
         onChange={onChangeHandler}
       />
+      <Error message={errors[input.name]} />
     </div>
   ));
 
@@ -69,7 +110,7 @@ const App = () => {
         {renderProductList}
       </div>
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add New Product">
-        <form className="space-y-3">
+        <form className="space-y-3" onSubmit={submitHandler}>
           {renderFormInputList}
           <div className="flex items-center space-x-3">
             <Button className="bg-indigo-700 hover:bg-indigo-800">
@@ -77,7 +118,7 @@ const App = () => {
             </Button>
             <Button
               className="bg-gray-500 hover:bg-gray-600"
-              onClick={closeModal}
+              onClick={onCancel}
             >
               Cancel
             </Button>
