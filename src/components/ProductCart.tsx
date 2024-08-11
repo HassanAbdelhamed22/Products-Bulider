@@ -6,9 +6,11 @@ import Button from "./UI/Button";
 
 interface IProps {
   product: IProduct;
+  setProductToEdit: (product: IProduct) => void;
+  openEditModal: () => void;
 }
 
-const ProductCart = ({ product }: IProps) => {
+const ProductCart = ({ product, setProductToEdit, openEditModal }: IProps) => {
   const { category, colors, description, imageURL, price, title } = product;
 
   /* RENDER */
@@ -16,6 +18,11 @@ const ProductCart = ({ product }: IProps) => {
     <CircleColor key={color} color={color} />
   ));
 
+  /* HANDLER */
+  const onEdit = () => {
+    setProductToEdit(product);
+    openEditModal()
+  };
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-lg p-2 flex flex-col transition duration-300 ease-in-out hover:transform hover:scale-105 cursor-pointer ">
       <Image
@@ -46,7 +53,11 @@ const ProductCart = ({ product }: IProps) => {
       </div>
 
       <div className="flex gap-2 rounded-lg mt-2">
-        <Button className="bg-indigo-700 hover:bg-indigo-800" width="w-full">
+        <Button
+          className="bg-indigo-700 hover:bg-indigo-800"
+          width="w-full"
+          onClick={onEdit}
+        >
           EDIT
         </Button>
         <Button className="bg-red-700 hover:bg-red-800" width="w-full">
