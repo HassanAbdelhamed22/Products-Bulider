@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCart from "./components/ProductCart";
 import Modal from "./components/UI/Modal";
-import { colors, formInputsList, productList } from "./data";
+import { categories, colors, formInputsList, productList } from "./data";
 import Button from "./components/UI/Button";
 import Input from "./components/UI/Input";
 import { IProduct } from "./interfaces";
@@ -9,6 +9,7 @@ import { productValidation } from "./validation";
 import Error from "./components/Error";
 import CircleColor from "./components/CircleColor";
 import { v4 as uuid } from "uuid";
+import SelectMenu from "./components/UI/SelectMenu";
 
 const App = () => {
   const defaultProductObj = {
@@ -30,9 +31,11 @@ const App = () => {
     description: "",
     imageURL: "",
     price: "",
+    colors: "",
   });
   const [tempColors, setTempColors] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   /*HANDLER*/
   const openModal = () => setIsOpen(true);
@@ -57,7 +60,10 @@ const App = () => {
       description: product.description,
       imageURL: product.imageURL,
       price: product.price,
+      colors: tempColors,
     });
+
+    console.log("Validation Errors:", errors);
 
     // Check if any property has a value of "" && Check if all properties have a value of ""
     const hasErrorMsg =
@@ -69,7 +75,12 @@ const App = () => {
     }
 
     setProducts((prev) => [
-      { ...product, id: uuid(), colors: tempColors },
+      {
+        ...product,
+        id: uuid(),
+        colors: tempColors,
+        category: selectedCategory,
+      },
       ...prev,
     ]);
 
@@ -129,13 +140,17 @@ const App = () => {
 
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
-      xl:grid-cols-4 gap-2 m-5 p-2"
+      xl:grid-cols-4 gap-4 m-5 p-2"
       >
         {renderProductList}
       </div>
       <Modal isOpen={isOpen} closeModal={closeModal} title="Add New Product">
         <form className="space-y-3" onSubmit={submitHandler}>
           {renderFormInputList}
+          <SelectMenu
+            selected={selectedCategory}
+            setSelected={setSelectedCategory}
+          />
           <div className="flex items-center my-3  flex-wrap gap-1 ">
             {tempColors.map((color) => (
               <span
@@ -150,6 +165,7 @@ const App = () => {
           <div className="flex items-center my-3  flex-wrap gap-1 ">
             {renderColors}
           </div>
+          {errors.colors && <Error message={errors.colors} />}
 
           <div className="flex items-center space-x-3">
             <Button className="bg-indigo-700 hover:bg-indigo-800">

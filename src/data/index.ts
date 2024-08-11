@@ -1,4 +1,4 @@
-import { IFormInput, IProduct } from "./../interfaces/index";
+import { ICategories, IFormInput, IProduct } from "./../interfaces/index";
 import { v4 as uuid } from "uuid";
 
 export const productList: IProduct[] = [
@@ -203,4 +203,55 @@ export const colors: string[] = [
   "#5f3dc4",
   "#3bc9db",
   "#f03e3e",
+];
+
+export const categories: ICategories[] = [
+  {
+    id: uuid(),
+    name: "Technology",
+    imageURL: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+  },
+  {
+    id: uuid(),
+    name: "Health",
+    imageURL: "https://images.unsplash.com/photo-1554224154-22dec7ec8818",
+  },
+  {
+    id: uuid(),
+    name: "Education",
+    imageURL:
+      "https://plus.unsplash.com/premium_photo-1682125773446-259ce64f9dd7?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZWR1Y2F0aW9uJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D",
+  },
+  {
+    id: uuid(),
+    name: "Sports",
+    imageURL:
+      "https://media.istockphoto.com/id/469569130/photo/fanatical-hockey-fans-at-a-stadium.webp?b=1&s=170667a&w=0&k=20&c=rq7An_bg9GDhqwUMhyXPMGeJKHMN9j8J3MfnwAipotM=",
+  },
+  {
+    id: uuid(),
+    name: "Travel",
+    imageURL: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+  },
+  {
+    id: uuid(),
+    name: "Food",
+    imageURL:
+      "https://plus.unsplash.com/premium_photo-1683892034683-b6896f6245f9?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D",
+  },
+  {
+    id: uuid(),
+    name: "Fashion",
+    imageURL: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
+  },
+  {
+    id: uuid(),
+    name: "Science",
+    imageURL: "https://images.unsplash.com/photo-1517976487492-5750f3195933",
+  },
+  {
+    id: uuid(),
+    name: "Finance",
+    imageURL: "https://images.unsplash.com/photo-1444653389962-8149286c578a",
+  },
 ];
