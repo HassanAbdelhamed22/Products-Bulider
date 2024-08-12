@@ -10,13 +10,16 @@ import { categories } from "../../data";
 import { ICategories } from "../../interfaces";
 
 interface IProps {
-  selected: ICategories;
+  selected: { name: string; imageURL: string };
   setSelected: (category: ICategories) => void;
 }
 
 export default function SelectMenu({ selected, setSelected }: IProps) {
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={setSelected}
+    >
       <Label className="block text-sm font-medium leading-6 text-gray-900">
         Categories
       </Label>
@@ -56,11 +59,9 @@ export default function SelectMenu({ selected, setSelected }: IProps) {
                 </span>
               </div>
 
-              {selected.id === category.id && (
-                <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-data-[focus]:text-white">
+              {/* <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-data-[focus]:text-white">
                   <CheckIcon aria-hidden="true" className="h-5 w-5" />
-                </span>
-              )}
+                </span> */}
             </ListboxOption>
           ))}
         </ListboxOptions>

@@ -29,6 +29,7 @@ const App = () => {
   const [products, setProducts] = useState<IProduct[]>(productList);
   const [productToEdit, setProductToEdit] =
     useState<IProduct>(defaultProductObj);
+  const [productToEditIndex, setProductToEditIndex] = useState<number>(0);
   const [errors, setErrors] = useState({
     title: "",
     description: "",
@@ -81,8 +82,6 @@ const App = () => {
       colors: tempColors,
     });
 
-    console.log("Validation Errors:", errors);
-
     // Check if any property has a value of "" && Check if all properties have a value of ""
     const hasErrorMsg =
       Object.values(errors).some((value) => value === "") &&
@@ -117,7 +116,6 @@ const App = () => {
       colors: tempColors,
     });
 
-    // Check if any property has a value of "" && Check if all properties have a value of ""
     const hasErrorMsg =
       Object.values(errors).some((value) => value === "") &&
       Object.values(errors).every((value) => value === "");
@@ -126,33 +124,36 @@ const App = () => {
       return;
     }
 
-    setProducts((prev) => [
-      {
-        ...product,
-        id: uuid(),
-        colors: tempColors,
-        category: selectedCategory,
-      },
-      ...prev,
-    ]);
+    const updatedProducts = [...products];
+    updatedProducts[productToEditIndex] = {
+      ...productToEdit,
+      colors: tempColors.concat(productToEdit.colors),
+    };
+    setProducts(updatedProducts);
 
     setProductToEdit(defaultProductObj);
     setTempColors([]);
-    closeModal();
+    closeEditModal();
   };
 
   const onCancel = () => {
     setProduct(defaultProductObj);
     closeModal();
   };
+  const onEditCancel = () => {
+    setProductToEdit(defaultProductObj);
+    closeEditModal();
+  };
 
   /*RENDER*/
-  const renderProductList = products.map((product) => (
+  const renderProductList = products.map((product, index) => (
     <ProductCart
       key={product.id}
       product={product}
       setProductToEdit={setProductToEdit}
       openEditModal={openEditModal}
+      index={index}
+      setProductToEditIndex={setProductToEditIndex}
     />
   ));
 
@@ -184,6 +185,10 @@ const App = () => {
           setTempColors((prev) => prev.filter((item) => item != color));
           return;
         }
+        if (productToEdit.colors.includes(color)) {
+          setTempColors((prev) => prev.filter((item) => item != color));
+          return;
+        }
         setTempColors((prev) => [...prev, color]);
       }}
     />
@@ -200,7 +205,6 @@ const App = () => {
           htmlFor={id}
           className="mb-[2px] text-[16px] font-medium text-gray-700"
         >
-          {/* {input.label} */}
           {label}
         </label>
         <Input
@@ -280,12 +284,16 @@ const App = () => {
           )}
           {renderProductEditWithErrorMsg("imageURL", "Image URL", "imageURL")}
           {renderProductEditWithErrorMsg("price", "Product Price", "price")}
-          {/* <SelectMenu
-            selected={selectedCategory}
-            setSelected={setSelectedCategory}
+
+          <SelectMenu
+            selected={productToEdit.category}
+            setSelected={(value) =>
+              setProductToEdit({ ...productToEdit, category: value })
+            }
           />
+
           <div className="flex items-center my-3  flex-wrap gap-1 ">
-            {tempColors.map((color) => (
+            {tempColors.concat(productToEdit.colors).map((color) => (
               <span
                 key={color}
                 style={{ backgroundColor: color }}
@@ -294,19 +302,19 @@ const App = () => {
                 {color}
               </span>
             ))}
-          </div> */}
-          {/* <div className="flex items-center my-3  flex-wrap gap-1 ">
+          </div>
+          <div className="flex items-center my-3  flex-wrap gap-1 ">
             {renderColors}
           </div>
-          {errors.colors && <Error message={errors.colors} />} */}
+          {errors.colors && <Error message={errors.colors} />}
 
           <div className="flex items-center space-x-3">
-            <Button className="bg-indigo-700 hover:bg-indigo-800">
+            <Button type="submit" className="bg-indigo-700 hover:bg-indigo-800">
               Edit
             </Button>
             <Button
               className="bg-gray-500 hover:bg-gray-600"
-              onClick={onCancel}
+              onClick={onEditCancel}
             >
               Cancel
             </Button>

@@ -8,9 +8,11 @@ interface IProps {
   product: IProduct;
   setProductToEdit: (product: IProduct) => void;
   openEditModal: () => void;
+  setProductToEditIndex: (value: number) => void;
+  index: number
 }
 
-const ProductCart = ({ product, setProductToEdit, openEditModal }: IProps) => {
+const ProductCart = ({ product, setProductToEdit, openEditModal, setProductToEditIndex, index }: IProps) => {
   const { category, colors, description, imageURL, price, title } = product;
 
   /* RENDER */
@@ -22,6 +24,7 @@ const ProductCart = ({ product, setProductToEdit, openEditModal }: IProps) => {
   const onEdit = () => {
     setProductToEdit(product);
     openEditModal()
+    setProductToEditIndex(index)
   };
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-lg p-2 flex flex-col transition duration-300 ease-in-out hover:transform hover:scale-105 cursor-pointer ">
