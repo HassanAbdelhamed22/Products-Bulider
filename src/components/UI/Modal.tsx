@@ -12,6 +12,10 @@ export default function Modal({ closeModal, isOpen, title, children }: IProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <div
+          className="fixed inset-0  backdrop-blur-sm"
+          aria-hidden="true"
+        ></div>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -21,9 +25,9 @@ export default function Modal({ closeModal, isOpen, title, children }: IProps) {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className="fixed inset-0 z-10 w-screen overflow-y-auto bg-black bg-opacity-30">
+          <div className="fixed inset-0 z-10 w-screen overflow-y-auto bg-black bg-opacity-25">
             <div className="flex min-h-full items-center justify-center p-4 text-black">
-              <Dialog.Panel className="w-full max-w-md rounded-lg bg-white p-6 backdrop-blur-2xl">
+              <Dialog.Panel className="relative w-full max-w-md rounded-xl shadow-lg bg-white p-6">
                 {title && (
                   <DialogTitle
                     as="h3"
@@ -34,6 +38,27 @@ export default function Modal({ closeModal, isOpen, title, children }: IProps) {
                 )}
 
                 <div className="mt-4">{children}</div>
+
+                {/* Close Button */}
+                <button
+                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
+                  onClick={closeModal}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </Dialog.Panel>
             </div>
           </div>

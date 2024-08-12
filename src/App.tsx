@@ -221,9 +221,12 @@ const App = () => {
 
   return (
     <main className="container">
-      <Button className="bg-indigo-700 hover:bg-indigo-800" onClick={openModal}>
-        Add
+      <div className="flex items-center justify-between mt-10 mx-5 px-2">
+        <h1 className="font-bold text-3xl ">Product <span className="text-violet-700">Builder</span></h1>
+        <Button className="bg-indigo-700 hover:bg-indigo-800 w-[30%] lg:w-[10%]" onClick={openModal}>
+        Build a Product
       </Button>
+      </div>
 
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
@@ -313,7 +316,7 @@ const App = () => {
               Edit
             </Button>
             <Button
-              className="bg-gray-500 hover:bg-gray-600"
+              className="bg-gray-300 hover:bg-gray-400 text-black"
               onClick={onEditCancel}
             >
               Cancel
