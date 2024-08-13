@@ -8,6 +8,7 @@ interface IProps {
   product: IProduct;
   setProductToEdit: (product: IProduct) => void;
   openEditModal: () => void;
+  openConfirmModal: () => void;
   setProductToEditIndex: (value: number) => void;
   index: number;
 }
@@ -16,6 +17,7 @@ const ProductCart = ({
   product,
   setProductToEdit,
   openEditModal,
+  openConfirmModal,
   setProductToEditIndex,
   index,
 }: IProps) => {
@@ -87,6 +89,7 @@ const ProductCart = ({
         <Button
           className="bg-red-600 hover:bg-red-700 rounded-lg flex items-center justify-center space-x-2"
           width="w-full"
+          onClick={openConfirmModal}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

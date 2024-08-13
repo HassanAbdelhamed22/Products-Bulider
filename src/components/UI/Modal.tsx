@@ -13,7 +13,7 @@ export default function Modal({ closeModal, isOpen, title, children }: IProps) {
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
         <div
-          className="fixed inset-0  backdrop-blur-sm"
+          className="fixed inset-0  backdrop-blur-sm bg-black bg-opacity-25"
           aria-hidden="true"
         ></div>
         <Transition.Child
@@ -25,7 +25,7 @@ export default function Modal({ closeModal, isOpen, title, children }: IProps) {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className="fixed inset-0 z-10 w-screen overflow-y-auto bg-black bg-opacity-25">
+          <div className="fixed inset-0 z-10 w-screen overflow-y-auto ">
             <div className="flex min-h-full items-center justify-center p-4 text-black">
               <Dialog.Panel className="relative w-full max-w-md rounded-xl shadow-lg bg-white p-6">
                 {title && (
