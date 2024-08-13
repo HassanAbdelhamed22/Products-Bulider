@@ -35,6 +35,11 @@ const ProductCart = ({
     setProductToEditIndex(index);
   };
 
+  const onRemove = () => {
+    setProductToEdit(product);
+    openConfirmModal();
+  };
+
   return (
     <div className="max-w-sm md:max-w-lg mx-auto md:mx-0 border rounded-xl p-4 shadow-lg flex flex-col">
       <Image
@@ -89,7 +94,7 @@ const ProductCart = ({
         <Button
           className="bg-red-600 hover:bg-red-700 rounded-lg flex items-center justify-center space-x-2"
           width="w-full"
-          onClick={openConfirmModal}
+          onClick={onRemove}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

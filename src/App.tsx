@@ -19,6 +19,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import toast, { Toaster } from "react-hot-toast";
 
 const App = () => {
   const defaultProductObj = {
@@ -116,6 +117,9 @@ const App = () => {
     setProduct(defaultProductObj);
     setTempColors([]);
     closeModal();
+    toast.success("Product has been added successfully", {
+      className: "bg-green-600 text-white hover:bg-green-700 font-bold",
+    });
   };
 
   const submitEditHandler = (event: FormEvent<HTMLFormElement>): void => {
@@ -146,6 +150,10 @@ const App = () => {
     setProductToEdit(defaultProductObj);
     setTempColors([]);
     closeEditModal();
+    toast.success("Product has been edited successfully", {
+      className: "bg-blue-600 text-white hover:bg-blue-700",
+      icon: "✏️",
+    });
   };
 
   const onCancel = () => {
@@ -154,7 +162,14 @@ const App = () => {
   };
 
   const removeProductHandler = () => {
-    
+    const filtered = products.filter(
+      (product) => product.id != productToEdit.id
+    );
+    setProducts(filtered);
+    closeConfirmModal();
+    toast.error("Product has been deleted successfully", {
+      className: "bg-[#c2344d]    hover:bg-red-800 text-white",
+    });
   };
 
   const onEditCancel = () => {
@@ -413,6 +428,8 @@ const App = () => {
           </div>
         </div>
       </Dialog>
+
+      <Toaster position="top-center" reverseOrder={false} />
     </main>
   );
 };
