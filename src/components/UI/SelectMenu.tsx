@@ -5,7 +5,7 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { categories } from "../../data";
 import { ICategories } from "../../interfaces";
 
@@ -16,10 +16,7 @@ interface IProps {
 
 export default function SelectMenu({ selected, setSelected }: IProps) {
   return (
-    <Listbox
-      value={selected}
-      onChange={setSelected}
-    >
+    <Listbox value={selected} onChange={setSelected}>
       <Label className="block text-sm font-medium leading-6 text-gray-900">
         Categories
       </Label>
